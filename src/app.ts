@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application } from "express";
 import { JSON_SIZE_LIMIT, URL_ENCODED_SIZE_LIMIT } from "./constants";
+import 'reflect-metadata';
 
 // creating express application
 const app: Application = express();
@@ -32,10 +33,10 @@ app.use(express.static("public"));
  */
 app.use(cookieParser());
 
-// Routes import
-import testRouter from "./routes/testing.routes";
+// Importing Root router that will be used for implementation of all the routers in the app
+import rootRouter from "./routes/root.routes";
 
 // Routes declaration
-app.use("/api/v1/", testRouter);
+app.use("/api/v1/",rootRouter);
 
 export {app};

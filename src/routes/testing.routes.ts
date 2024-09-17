@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { testApi } from "../controllers/testing.controllers";
+import { apiCheck } from "../controllers/testing.controllers";
 
 const testRouter: Router = Router();
 
-testRouter.route("/test").post(testApi);
+testRouter.route("/checkPost").post(apiCheck);
 
 export default testRouter;
