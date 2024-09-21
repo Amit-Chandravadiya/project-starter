@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 // Creating instance of prisma to read and write in Database
 const sequelize = new Sequelize(process.env.DATABASE_DB, process.env.DATABASE_USER, process.env.DATABASE_PASS, {
   host: process.env.DATABASE_HOST,
-  dialect: "postgres"
+  dialect: "mysql"
 });
 
 async function connectToDatabase() {
