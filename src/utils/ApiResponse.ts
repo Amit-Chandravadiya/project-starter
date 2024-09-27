@@ -3,7 +3,7 @@ export default class ApiResponse {
     constructor(
         private statusCode: number,
         private message: string,
-        private data: Object
+        private data?: Object
     ){}
 
 }

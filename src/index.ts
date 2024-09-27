@@ -5,8 +5,9 @@ dotenv.config();
 // Initiliazing database from DB.ts
 // Importing app instance from app.ts
 import { app } from "./app";
-import connectToDatabase from "./db/DB";
+import {connectToDatabase} from "./db/DB";
 
+// Testing connection with the database
 connectToDatabase()
 .then(() => {
 

@@ -16,4 +16,4 @@ async function connectToDatabase() {
     }
   }
 // Exporting DB instance
-export default connectToDatabase;
+export { connectToDatabase, sequelize };

@@ -10,18 +10,17 @@ import { Router } from "express";
 
 // Importing different routers that needed to be included in the app
 import testRouter from "./testing.routes";
+import usersRouter from "./users.routes";
+
+
 
 // Creating instance of root router
 const rootRouter: Router = Router();
 
 
-
-
-
-
 // All the routes should be placed here  
 rootRouter.use("/testing",testRouter);
-
+rootRouter.use("/user",usersRouter)
 
 
 
