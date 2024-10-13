@@ -1,12 +1,21 @@
-// userController.ts
+// ***************************************** IMPORTS [START] *************************************** //
 import { Request, Response } from "express";
 import ApiResponse from "../utils/ApiResponse";
 import { userApiValidator } from "../validators/user.validator";
 import asyncHandler from "../utils/Asynchandler";
 import { ApiError } from "../utils/ApiError";
 import { UserService } from "../services/users.service"; // Import the UserService
+// ***************************************** IMPORTS [END] *************************************** //
 
-// UserController class to handle user-related operations
+/**
+ * 
+ * Following UserController class is responsibe for handling user related operaitons like,
+ * 
+ * 1) Registration of the user
+ * 2) Login of the user 
+ * 3) Logout of the user
+ * 
+ */
 class UserController {
   private userService: UserService;
 
@@ -15,13 +24,7 @@ class UserController {
     this.userService = userService;
   }
 
-  /**
-   * Following method will handle the User Registration and the steps to register are:
-   * 1) Validation - Validating all the user related data that comes in the request body
-   * 2) Passing data to the service to create the user, and if the user creating failed then
-   *    service class itself will send the response to the Client.
-   * 
-   */
+  // Following function is responsible for the user registration 
   public registerUser = asyncHandler(
     async (req: Request, res: Response): Promise<Response> => {
 

@@ -18,6 +18,7 @@ import {
       try {
         // Execute the database operation
         return await dbOperation();
+        
       } catch (error) {
         let statusCode: number = 500;
         let message: string = '';
