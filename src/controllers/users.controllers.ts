@@ -1,50 +1,50 @@
-/**
- * This File contains the business logic related to USERS
- * 1) registerUser -> This method contains the logic for registering user
- * 
- * NOTE :- All the error thrown inside of the asyncHandeler will be handeled by asyncHandler 
- *         itself by sending response to the user with error message. If you are not using asyncHandler 
- *         then you have explictly handle the error of the controller with try-catch and respone
- */
-
-
-
+// userController.ts
 import { Request, Response } from "express";
 import ApiResponse from "../utils/ApiResponse";
 import { userApiValidator } from "../validators/user.validator";
-import { userModel } from "../models/users.models";
 import asyncHandler from "../utils/Asynchandler";
 import { ApiError } from "../utils/ApiError";
+import { UserService } from "../services/users.service"; // Import the UserService
 
-interface registerUserInterface {
-    username: string,
-    email: string,
-    fullname?: string
-}
+// UserController class to handle user-related operations
+class UserController {
+  private userService: UserService;
 
-const registerUser = asyncHandler(async (req: Request<{},{},registerUserInterface>, res: Response): Promise<Response> => {
+  // Inject UserService into the constructor (Dependency Injection)
+  constructor(userService: UserService) {
+    this.userService = userService;
+  }
 
-    // validating request data in the api 
-    const {error,value} = userApiValidator.validate(req.body);
+  /**
+   * Following method will handle the User Registration and the steps to register are:
+   * 1) Validation - Validating all the user related data that comes in the request body
+   * 2) Passing data to the service to create the user, and if the user creating failed then
+   *    service class itself will send the response to the Client.
+   * 
+   */
+  public registerUser = asyncHandler(
+    async (req: Request, res: Response): Promise<Response> => {
 
-    // checking if the error is produced during validation 
-    if(error)
-    {
-        throw new ApiError(400,error.details[0].message);
+      // Validate the incoming request data
+      const { error, value } = userApiValidator.validate(req.body);
+
+      // Check for validation errors
+      if (error) {
+        throw new ApiError(400, error.details[0].message);
+      }
+
+      // Using Userservice class method to create a new user
+      const createdUser = await this.userService.createUser(value);
+
+      // Return response if user creation is successful
+      return res
+        .status(200)
+        .json(
+          new ApiResponse(200, "User registered successfully!", createdUser)
+        );
     }
-    
-    // creating user using sequelize model
-    const createdUser = await userModel.create({
-            username: value.username,
-            user_email: value.email,
-            fullname: value.fullname,
-            phone_no: value.phoneno
-    })
-
-    // return following response if no error occurs
-    return res.status(200).json(new ApiResponse(200,"User data received successfully !",req.body))
-});
-
-export {
-    registerUser
+  );
 }
+
+// Exporting UserController class
+export default UserController;
