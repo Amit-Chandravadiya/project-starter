@@ -17,7 +17,7 @@ const userModel = sequelize.define('Users',{
         allowNull: false,
         unique: true
     },
-    fullname: {
+    full_name: {
         type: DataTypes.STRING,
         allowNull: true
     },

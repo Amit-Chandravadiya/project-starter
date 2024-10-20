@@ -13,7 +13,7 @@ export class UserService {
       const createdUser = await userModel.create({
         username: userData.username,
         user_email: userData.email,
-        fullname: userData.fullname,
+        full_name: userData.fullname,
         phone_no: userData.phoneno,
       });
 
